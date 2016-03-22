@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HellBrick.Diagnostics.Utils
+namespace HellBrick.Refactorings.Utils
 {
 	public static partial class EnumerableExtensions
 	{

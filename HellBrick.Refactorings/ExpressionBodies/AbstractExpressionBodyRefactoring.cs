@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeRefactorings;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using HellBrick.Diagnostics.Utils;
+using HellBrick.Refactorings.Utils;
 using Microsoft.CodeAnalysis.CodeActions;
 using System.Threading;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 
-namespace HellBrick.Diagnostics.ExpressionBodies
+namespace HellBrick.Refactorings.ExpressionBodies
 {
 	internal abstract class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
 		where TDeclarationSyntax : MemberDeclarationSyntax

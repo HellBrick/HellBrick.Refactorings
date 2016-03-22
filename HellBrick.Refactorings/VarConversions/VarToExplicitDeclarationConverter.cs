@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace HellBrick.Diagnostics.VarConversions
+namespace HellBrick.Refactorings.VarConversions
 {
 	internal class VarToExplicitDeclarationConverter : IDeclarationConverter
 	{

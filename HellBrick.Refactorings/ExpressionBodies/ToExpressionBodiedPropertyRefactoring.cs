@@ -12,10 +12,10 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Rename;
 using Microsoft.CodeAnalysis.Text;
-using HellBrick.Diagnostics.Utils;
+using HellBrick.Refactorings.Utils;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
-namespace HellBrick.Diagnostics.ExpressionBodies
+namespace HellBrick.Refactorings.ExpressionBodies
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
 	internal class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>

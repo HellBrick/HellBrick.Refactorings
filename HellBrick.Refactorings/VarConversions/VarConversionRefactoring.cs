@@ -13,9 +13,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Rename;
 using Microsoft.CodeAnalysis.Text;
 using System.Diagnostics;
-using HellBrick.Diagnostics.Utils;
+using HellBrick.Refactorings.Utils;
 
-namespace HellBrick.Diagnostics.VarConversions
+namespace HellBrick.Refactorings.VarConversions
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( VarConversionRefactoring ) ), Shared]
 	internal class VarConversionRefactoring : CodeRefactoringProvider

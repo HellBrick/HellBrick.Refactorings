@@ -12,9 +12,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Rename;
 using Microsoft.CodeAnalysis.Text;
-using HellBrick.Diagnostics.Utils;
+using HellBrick.Refactorings.Utils;
 
-namespace HellBrick.Diagnostics.StringInterpolation
+namespace HellBrick.Refactorings.StringInterpolation
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( StringFormatToStringInterpolationRefactoring ) ), Shared]
 	public class StringFormatToStringInterpolationRefactoring : CodeRefactoringProvider

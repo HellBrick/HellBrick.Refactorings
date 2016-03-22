@@ -8,8 +8,8 @@
     <ProjectGuid>{4D36292E-D170-40D5-8D47-C4C867063DE7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HellBrick.Diagnostics.Refactorings</RootNamespace>
-    <AssemblyName>HellBrick.Diagnostics.Refactorings</AssemblyName>
+    <RootNamespace>HellBrick.Refactorings</RootNamespace>
+    <AssemblyName>HellBrick.Refactorings</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

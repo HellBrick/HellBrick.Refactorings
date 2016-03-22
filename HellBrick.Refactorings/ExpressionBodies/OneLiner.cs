@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace HellBrick.Diagnostics.ExpressionBodies
+namespace HellBrick.Refactorings.ExpressionBodies
 {
 	public struct OneLiner
 	{

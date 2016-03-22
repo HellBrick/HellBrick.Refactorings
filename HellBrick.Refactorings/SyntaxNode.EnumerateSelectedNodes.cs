@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
-namespace HellBrick.Diagnostics.Utils
+namespace HellBrick.Refactorings.Utils
 {
 	public static partial class SyntaxNodeExtensions
 	{

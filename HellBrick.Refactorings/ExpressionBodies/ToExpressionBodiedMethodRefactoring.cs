@@ -13,9 +13,9 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Rename;
 using Microsoft.CodeAnalysis.Text;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using HellBrick.Diagnostics.Utils;
+using HellBrick.Refactorings.Utils;
 
-namespace HellBrick.Diagnostics.ExpressionBodies
+namespace HellBrick.Refactorings.ExpressionBodies
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
 	internal class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>

@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace HellBrick.Diagnostics.StringInterpolation
+namespace HellBrick.Refactorings.StringInterpolation
 {
 	internal static class FormatStringParser
 	{
