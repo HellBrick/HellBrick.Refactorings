@@ -125,6 +125,7 @@
     <Compile Include="StringFormatToStringInterpolationTest.cs" />
     <Compile Include="ToExpressionBodiedPropertyTest.cs" />
     <Compile Include="ToExpressionBodiedMethodTest.cs" />
+    <Compile Include="VarToExplicitTypeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
