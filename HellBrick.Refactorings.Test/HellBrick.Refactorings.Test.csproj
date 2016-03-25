@@ -123,6 +123,8 @@
     <Compile Include="Helpers\CodeRefactoringProviderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringFormatToStringInterpolationTest.cs" />
+    <Compile Include="ToExpressionBodiedPropertyTest.cs" />
+    <Compile Include="ToExpressionBodiedMethodTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
