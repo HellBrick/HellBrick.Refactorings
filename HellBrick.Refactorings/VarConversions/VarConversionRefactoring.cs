@@ -18,7 +18,7 @@ using HellBrick.Refactorings.Utils;
 namespace HellBrick.Refactorings.VarConversions
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( VarConversionRefactoring ) ), Shared]
-	internal class VarConversionRefactoring : CodeRefactoringProvider
+	public class VarConversionRefactoring : CodeRefactoringProvider
 	{
 		private IDeclarationConverter[] converters = new IDeclarationConverter[]
 		{
