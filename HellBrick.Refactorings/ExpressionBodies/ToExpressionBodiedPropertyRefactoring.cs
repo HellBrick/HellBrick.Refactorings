@@ -18,7 +18,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 namespace HellBrick.Refactorings.ExpressionBodies
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
-	internal class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
+	public class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
 	{
 		protected override bool CanConvertToExpression( PropertyDeclarationSyntax declaration )
 		{

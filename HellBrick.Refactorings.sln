@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HellBrick.Refactorings", "H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HellBrick.Refactorings.Vsix", "HellBrick.Refactorings.Vsix\HellBrick.Refactorings.Vsix.csproj", "{3E5FBA66-7DBC-43F6-B5FD-FF793F342199}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HellBrick.Refactorings.Test", "HellBrick.Refactorings.Test\HellBrick.Refactorings.Test.csproj", "{C99E85B5-37A4-42F8-A3DF-1BAD2E46CFE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3E5FBA66-7DBC-43F6-B5FD-FF793F342199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5FBA66-7DBC-43F6-B5FD-FF793F342199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E5FBA66-7DBC-43F6-B5FD-FF793F342199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C99E85B5-37A4-42F8-A3DF-1BAD2E46CFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C99E85B5-37A4-42F8-A3DF-1BAD2E46CFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C99E85B5-37A4-42F8-A3DF-1BAD2E46CFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C99E85B5-37A4-42F8-A3DF-1BAD2E46CFE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

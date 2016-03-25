@@ -18,7 +18,7 @@ using HellBrick.Refactorings.Utils;
 namespace HellBrick.Refactorings.ExpressionBodies
 {
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
-	internal class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
+	public class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
 	{
 		protected override bool CanConvertToExpression( MethodDeclarationSyntax declaration ) => true;
 		protected override BlockSyntax GetBody( MethodDeclarationSyntax declaration ) => declaration.Body;

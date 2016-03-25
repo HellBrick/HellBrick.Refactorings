@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	internal abstract class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
+	public abstract class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
 		where TDeclarationSyntax : MemberDeclarationSyntax
 	{
 		public async sealed override Task ComputeRefactoringsAsync( CodeRefactoringContext context )
