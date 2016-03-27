@@ -13,8 +13,8 @@
     <ProjectGuid>{3E5FBA66-7DBC-43F6-B5FD-FF793F342199}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HellBrick.Diagnostics.Refactorings</RootNamespace>
-    <AssemblyName>HellBrick.Diagnostics.Refactorings.Vsix</AssemblyName>
+    <RootNamespace>HellBrick.Refactorings</RootNamespace>
+    <AssemblyName>HellBrick.Refactorings.Vsix</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <IncludeAssemblyInVSIXContainer>false</IncludeAssemblyInVSIXContainer>

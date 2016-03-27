@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle( "HellBrick.Diagnostics.Refactorings.Vsix" )]
+[assembly: AssemblyTitle( "HellBrick.Refactorings.Vsix" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
-[assembly: AssemblyProduct( "HellBrick.Diagnostics.Refactorings.Vsix" )]
+[assembly: AssemblyProduct( "HellBrick.Refactorings.Vsix" )]
 [assembly: AssemblyCopyright( "" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
