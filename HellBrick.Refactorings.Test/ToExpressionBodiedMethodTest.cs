@@ -10,7 +10,7 @@ namespace HellBrick.Refactorings.Test
 {
 	public class ToExpressionBodiedMethodTest
 	{
-		private ToExpressionBodiedMethodRefactoring _provider = new ToExpressionBodiedMethodRefactoring();
+		private ToExpressionBodyRefactoring _provider = new ToExpressionBodyRefactoring();
 
 		[Fact]
 		public void MultipleLineMethodIsIgnored()
