@@ -15,5 +15,8 @@ namespace HellBrick.Refactorings.ExpressionBodies
 		string GetIdentifierName( TDeclaration declaration );
 		SyntaxNode GetRemovedBlock( TDeclaration declaration );
 		TDeclaration ReplaceBodyWithExpressionClause( TDeclaration declaration, ArrowExpressionClauseSyntax arrow );
+		ArrowExpressionClauseSyntax GetArrow( TDeclaration member );
+		StatementSyntax CreateStatement( ExpressionSyntax expression, TDeclaration declaration );
+		TDeclaration ReplaceExpressionClauseWithBody( TDeclaration declaration, BlockSyntax body );
 	}
 }

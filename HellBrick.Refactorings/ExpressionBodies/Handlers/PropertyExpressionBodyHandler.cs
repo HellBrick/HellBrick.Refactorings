@@ -34,5 +34,20 @@ namespace HellBrick.Refactorings.ExpressionBodies
 		{
 			return declaration.AccessorList?.Accessors.FirstOrDefault( a => a.IsKind( accessorKind ) );
 		}
+
+		public ArrowExpressionClauseSyntax GetArrow( PropertyDeclarationSyntax member ) => member.ExpressionBody;
+		public StatementSyntax CreateStatement( ExpressionSyntax expression, PropertyDeclarationSyntax declaration ) => ReturnStatement( expression );
+
+		public PropertyDeclarationSyntax ReplaceExpressionClauseWithBody( PropertyDeclarationSyntax declaration, BlockSyntax body )
+			=> declaration
+				.WithExpressionBody( null )
+				.WithSemicolonToken( Token( SyntaxKind.None ) )
+				.WithAccessorList
+				(
+					AccessorList
+					(
+						new SyntaxList<AccessorDeclarationSyntax>().Add( AccessorDeclaration( SyntaxKind.GetAccessorDeclaration, body ) )
+					)
+				);
 	}
 }
