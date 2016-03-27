@@ -22,7 +22,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 		public BlockSyntax GetBody( PropertyDeclarationSyntax declaration ) => GetAccessor( declaration, SyntaxKind.GetAccessorDeclaration ).Body;
 		public string GetIdentifierName( PropertyDeclarationSyntax declaration ) => declaration.Identifier.Text;
-		public SyntaxNode GetRemovedNode( PropertyDeclarationSyntax declaration ) => declaration.AccessorList;
+		public SyntaxNode GetRemovedBlock( PropertyDeclarationSyntax declaration ) => declaration.AccessorList;
 
 		public PropertyDeclarationSyntax ReplaceBodyWithExpressionClause( PropertyDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
 			declaration

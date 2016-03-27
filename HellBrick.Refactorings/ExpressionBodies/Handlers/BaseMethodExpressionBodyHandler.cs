@@ -13,7 +13,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 	{
 		public bool CanConvertToExpression( TDeclaration declaration ) => true;
 		public BlockSyntax GetBody( TDeclaration declaration ) => declaration.Body;
-		public SyntaxNode GetRemovedNode( TDeclaration declaration ) => declaration.Body;
+		public SyntaxNode GetRemovedBlock( TDeclaration declaration ) => declaration.Body;
 
 		public abstract string GetIdentifierName( TDeclaration declaration );
 		public abstract TDeclaration ReplaceBodyWithExpressionClause( TDeclaration declaration, ArrowExpressionClauseSyntax arrow );

@@ -83,7 +83,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			TDeclarationSyntax newMember = oneLiner.Declaration;
 
 			//	Remove the \r\n if it's the only trailing trivia
-			SyntaxNode removedNode = _handler.GetRemovedNode( oneLiner.Declaration );
+			SyntaxNode removedNode = _handler.GetRemovedBlock( oneLiner.Declaration );
 			SyntaxNode lastMaintainedNode = oneLiner.Declaration.FindNode( new TextSpan( removedNode.FullSpan.Start - 1, 0 ) );
 			SyntaxTriviaList lastMaintainedNodeTrivia = lastMaintainedNode.GetTrailingTrivia();
 			if ( lastMaintainedNodeTrivia.Count == 1 && lastMaintainedNodeTrivia[ 0 ].IsKind( SyntaxKind.EndOfLineTrivia ) )
