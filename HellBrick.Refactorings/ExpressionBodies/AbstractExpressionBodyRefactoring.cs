@@ -43,7 +43,8 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			select new OneLiner( declaration, expression );
 
 		private static ExpressionSyntax TryGetLambdableExpression( StatementSyntax singleStatement )
-			=> ( singleStatement as ReturnStatementSyntax )?.Expression;
+			=> ( singleStatement as ReturnStatementSyntax )?.Expression
+			?? ( singleStatement as ExpressionStatementSyntax )?.Expression;
 
 		private Task<Document> ConvertToExpressionBodiedMemberAsync( OneLiner oneLiner, CodeRefactoringContext context, SyntaxNode root, CancellationToken cancellationToken )
 		{
