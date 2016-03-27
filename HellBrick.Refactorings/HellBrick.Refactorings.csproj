@@ -43,6 +43,7 @@
     <Compile Include="ExpressionBodies\Handlers\OperatorExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\Handlers\PropertyExpressionBodyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="String.NullIfEmpty.cs" />
     <Compile Include="StringInterpolation\FormatStringParser.cs" />
     <Compile Include="StringInterpolation\StringFormatConversion.cs" />
     <Compile Include="StringInterpolation\StringFormatToStringInterpolationRefactoring.cs" />
