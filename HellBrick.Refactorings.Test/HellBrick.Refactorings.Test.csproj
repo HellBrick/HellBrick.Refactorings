@@ -121,8 +121,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\CodeRefactoringProviderExtensions.cs" />
+    <Compile Include="Helpers\ProperFormattingOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringFormatToStringInterpolationTest.cs" />
+    <Compile Include="ToBlockBodiedMemberTest.cs" />
     <Compile Include="ToExpressionBodiedOperatorTest.cs" />
     <Compile Include="ToExpressionBodiedPropertyTest.cs" />
     <Compile Include="ToExpressionBodiedMethodTest.cs" />

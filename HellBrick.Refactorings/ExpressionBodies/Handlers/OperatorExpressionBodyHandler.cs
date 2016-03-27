@@ -18,5 +18,14 @@ namespace HellBrick.Refactorings.ExpressionBodies
 				.WithBody( null )
 				.WithExpressionBody( arrow )
 				.WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) );
+
+		public override ArrowExpressionClauseSyntax GetArrow( OperatorDeclarationSyntax member ) => member.ExpressionBody;
+		public override StatementSyntax CreateStatement( ExpressionSyntax expression, OperatorDeclarationSyntax declaration ) => ReturnStatement( expression );
+
+		public override OperatorDeclarationSyntax ReplaceExpressionClauseWithBody( OperatorDeclarationSyntax declaration, BlockSyntax body )
+			=> declaration
+				.WithExpressionBody( null )
+				.WithSemicolonToken( Token( SyntaxKind.None ) )
+				.WithBody( body );
 	}
 }
