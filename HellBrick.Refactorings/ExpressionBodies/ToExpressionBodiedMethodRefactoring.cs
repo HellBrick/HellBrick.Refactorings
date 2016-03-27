@@ -17,13 +17,18 @@ using HellBrick.Refactorings.Utils;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
-	public class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
+	public abstract class ToExpressionBodiedBaseMethodRefactoring<TDeclaration> : AbstractExpressionBodyRefactoring<TDeclaration>
+		where TDeclaration : BaseMethodDeclarationSyntax
 	{
-		protected override bool CanConvertToExpression( MethodDeclarationSyntax declaration ) => true;
-		protected override BlockSyntax GetBody( MethodDeclarationSyntax declaration ) => declaration.Body;
+		protected override bool CanConvertToExpression( TDeclaration declaration ) => true;
+		protected override BlockSyntax GetBody( TDeclaration declaration ) => declaration.Body;
+		protected override SyntaxNode GetRemovedNode( TDeclaration declaration ) => declaration.Body;
+	}
+
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
+	public class ToExpressionBodiedMethodRefactoring : ToExpressionBodiedBaseMethodRefactoring<MethodDeclarationSyntax>
+	{
 		protected override string GetIdentifierName( MethodDeclarationSyntax declaration ) => declaration.Identifier.Text;
-		protected override SyntaxNode GetRemovedNode( MethodDeclarationSyntax declaration ) => declaration.Body;
 
 		protected override MethodDeclarationSyntax ReplaceBodyWithExpressionClause( MethodDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
 			declaration
