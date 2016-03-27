@@ -39,7 +39,6 @@
     <Compile Include="ExpressionBodies\Handlers\BaseMethodExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\IExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\Handlers\MethodExpressionBodyHandler.cs" />
-    <Compile Include="ExpressionBodies\OneLiner.cs" />
     <Compile Include="ExpressionBodies\Handlers\OperatorExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\Handlers\PropertyExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\ToExpressionBodiedMethodRefactoring.cs" />
