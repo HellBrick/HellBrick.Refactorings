@@ -16,12 +16,29 @@ using System.Composition;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	public class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodyRefactoring ) ), Shared]
+	public class ToExpressionBodyRefactoring : CodeRefactoringProvider
+	{
+		private CodeRefactoringProvider[] _subProviders = new CodeRefactoringProvider[]
+		{
+			new ToExpressionBodyRefactoring<MethodDeclarationSyntax>( new MethodExpressionBodyHandler() ),
+			new ToExpressionBodyRefactoring<OperatorDeclarationSyntax>( new OperatorExpressionBodyHandler() ),
+			new ToExpressionBodyRefactoring<PropertyDeclarationSyntax>( new PropertyExpressionBodyHandler() )
+		};
+
+		public override async Task ComputeRefactoringsAsync( CodeRefactoringContext context )
+		{
+			foreach ( CodeRefactoringProvider subProvider in _subProviders )
+				await subProvider.ComputeRefactoringsAsync( context ).ConfigureAwait( false );
+		}
+	}
+
+	public class ToExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
 		where TDeclarationSyntax : MemberDeclarationSyntax
 	{
 		private readonly IExpressionBodyHandler<TDeclarationSyntax> _handler;
 
-		protected AbstractExpressionBodyRefactoring( IExpressionBodyHandler<TDeclarationSyntax> handler )
+		public ToExpressionBodyRefactoring( IExpressionBodyHandler<TDeclarationSyntax> handler )
 		{
 			_handler = handler;
 		}
@@ -92,29 +109,6 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 			public TDeclarationSyntax Declaration { get; }
 			public ExpressionSyntax Expression { get; }
-		}
-	}
-
-	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
-	public class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
-	{
-		public ToExpressionBodiedMethodRefactoring() : base( new MethodExpressionBodyHandler() )
-		{
-		}
-	}
-
-	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
-	public class ToExpressionBodiedOperatorRefactoring : AbstractExpressionBodyRefactoring<OperatorDeclarationSyntax>
-	{
-		public ToExpressionBodiedOperatorRefactoring() : base( new OperatorExpressionBodyHandler() )
-		{
-		}
-	}
-	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
-	public class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
-	{
-		public ToExpressionBodiedPropertyRefactoring() : base( new PropertyExpressionBodyHandler() )
-		{
 		}
 	}
 }

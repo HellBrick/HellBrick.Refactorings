@@ -10,7 +10,7 @@ namespace HellBrick.Refactorings.Test
 {
 	public class ToExpressionBodiedOperatorTest
 	{
-		private ToExpressionBodiedOperatorRefactoring _provider = new ToExpressionBodiedOperatorRefactoring();
+		private ToExpressionBodyRefactoring _provider = new ToExpressionBodyRefactoring();
 
 		[Fact]
 		public void MultipleLineOperatorIsIgnored()
