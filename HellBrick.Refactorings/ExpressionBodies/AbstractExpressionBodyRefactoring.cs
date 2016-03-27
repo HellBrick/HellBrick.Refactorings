@@ -38,9 +38,12 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			where CanConvertToExpression( declaration )
 			let body = GetBody( declaration )
 			where body?.Statements.Count == 1
-			let expression = ( body.Statements[ 0 ] as ReturnStatementSyntax )?.Expression
+			let expression = TryGetLambdableExpression( body.Statements[ 0 ] )
 			where expression != null
 			select new OneLiner( declaration, expression );
+
+		private static ExpressionSyntax TryGetLambdableExpression( StatementSyntax singleStatement )
+			=> ( singleStatement as ReturnStatementSyntax )?.Expression;
 
 		private Task<Document> ConvertToExpressionBodiedMemberAsync( OneLiner oneLiner, CodeRefactoringContext context, SyntaxNode root, CancellationToken cancellationToken )
 		{
