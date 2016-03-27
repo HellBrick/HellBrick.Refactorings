@@ -45,5 +45,13 @@ namespace HellBrick.Refactorings.Test
 			const string expected = "int Calc() => 42;\r\n";
 			_provider.ShouldProvideRefactoring( sourceCode, expected );
 		}
+
+		[Fact]
+		public void SingleLineVoidMethodIsConverted()
+		{
+			const string sourceCode = "void DoStuff() { Console.WriteLine( 42 ); }\r\n";
+			const string expected = "void DoStuff() => Console.WriteLine( 42 );\r\n";
+			_provider.ShouldProvideRefactoring( sourceCode, expected );
+		}
 	}
 }
