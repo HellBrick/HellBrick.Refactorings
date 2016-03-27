@@ -36,4 +36,16 @@ namespace HellBrick.Refactorings.ExpressionBodies
 				.WithExpressionBody( arrow )
 				.WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) );
 	}
+
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
+	public class ToExpressionBodiedOperatorRefactoring : ToExpressionBodiedBaseMethodRefactoring<OperatorDeclarationSyntax>
+	{
+		protected override string GetIdentifierName( OperatorDeclarationSyntax declaration ) => "operator " + declaration.OperatorToken.ToString();
+
+		protected override OperatorDeclarationSyntax ReplaceBodyWithExpressionClause( OperatorDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
+			declaration
+				.WithBody( null )
+				.WithExpressionBody( arrow )
+				.WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) );
+	}
 }
