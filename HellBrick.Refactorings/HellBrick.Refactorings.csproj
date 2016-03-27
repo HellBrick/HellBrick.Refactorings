@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="EnumerableExtensions.Concat.cs" />
     <Compile Include="ExpressionBodies\AbstractExpressionBodyRefactoring.cs" />
+    <Compile Include="ExpressionBodies\IExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\OneLiner.cs" />
     <Compile Include="ExpressionBodies\ToExpressionBodiedMethodRefactoring.cs" />
     <Compile Include="ExpressionBodies\ToExpressionBodiedPropertyRefactoring.cs" />

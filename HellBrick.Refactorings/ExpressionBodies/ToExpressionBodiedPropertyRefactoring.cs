@@ -17,10 +17,9 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
-	public class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
+	public class PropertyExpressionBodyHandler : IExpressionBodyHandler<PropertyDeclarationSyntax>
 	{
-		protected override bool CanConvertToExpression( PropertyDeclarationSyntax declaration )
+		public bool CanConvertToExpression( PropertyDeclarationSyntax declaration )
 		{
 			AccessorDeclarationSyntax getter = GetAccessor( declaration, SyntaxKind.GetAccessorDeclaration );
 			AccessorDeclarationSyntax setter = GetAccessor( declaration, SyntaxKind.SetAccessorDeclaration );
@@ -28,11 +27,11 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			return getter != null && setter == null;
 		}
 
-		protected override BlockSyntax GetBody( PropertyDeclarationSyntax declaration ) => GetAccessor( declaration, SyntaxKind.GetAccessorDeclaration ).Body;
-		protected override string GetIdentifierName( PropertyDeclarationSyntax declaration ) => declaration.Identifier.Text;
-		protected override SyntaxNode GetRemovedNode( PropertyDeclarationSyntax declaration ) => declaration.AccessorList;
+		public BlockSyntax GetBody( PropertyDeclarationSyntax declaration ) => GetAccessor( declaration, SyntaxKind.GetAccessorDeclaration ).Body;
+		public string GetIdentifierName( PropertyDeclarationSyntax declaration ) => declaration.Identifier.Text;
+		public SyntaxNode GetRemovedNode( PropertyDeclarationSyntax declaration ) => declaration.AccessorList;
 
-		protected override PropertyDeclarationSyntax ReplaceBodyWithExpressionClause( PropertyDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
+		public PropertyDeclarationSyntax ReplaceBodyWithExpressionClause( PropertyDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
 			declaration
 				.WithAccessorList( null )
 				.WithExpressionBody( arrow )
@@ -41,6 +40,14 @@ namespace HellBrick.Refactorings.ExpressionBodies
 		private AccessorDeclarationSyntax GetAccessor( PropertyDeclarationSyntax declaration, SyntaxKind accessorKind )
 		{
 			return declaration.AccessorList?.Accessors.FirstOrDefault( a => a.IsKind( accessorKind ) );
+		}
+	}
+
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
+	public class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
+	{
+		public ToExpressionBodiedPropertyRefactoring() : base( new PropertyExpressionBodyHandler() )
+		{
 		}
 	}
 }

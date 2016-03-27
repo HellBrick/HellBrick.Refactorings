@@ -15,9 +15,16 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	public abstract class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
+	public class AbstractExpressionBodyRefactoring<TDeclarationSyntax> : CodeRefactoringProvider
 		where TDeclarationSyntax : MemberDeclarationSyntax
 	{
+		private readonly IExpressionBodyHandler<TDeclarationSyntax> _handler;
+
+		protected AbstractExpressionBodyRefactoring( IExpressionBodyHandler<TDeclarationSyntax> handler )
+		{
+			_handler = handler;
+		}
+
 		public async sealed override Task ComputeRefactoringsAsync( CodeRefactoringContext context )
 		{
 			SyntaxNode root = await context.Document.GetSyntaxRootAsync( context.CancellationToken ).ConfigureAwait( false );
@@ -27,7 +34,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 			foreach ( OneLiner oneLiner in oneLiners )
 			{
-				string memberName = semanticModel.GetDeclaredSymbol( oneLiner.Declaration, context.CancellationToken )?.Name ?? GetIdentifierName( oneLiner.Declaration );
+				string memberName = semanticModel.GetDeclaredSymbol( oneLiner.Declaration, context.CancellationToken )?.Name ?? _handler.GetIdentifierName( oneLiner.Declaration );
 				CodeAction codeFix = CodeAction.Create( $"Convert '{memberName}' to an expression-bodied member", c => ConvertToExpressionBodiedMemberAsync( oneLiner, context, root, c ) );
 				context.RegisterRefactoring( codeFix );
 			}
@@ -35,8 +42,8 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 		private IEnumerable<OneLiner> EnumerateOneLiners( CodeRefactoringContext context, SyntaxNode root ) =>
 			from TDeclarationSyntax declaration in root.EnumerateSelectedNodes<TDeclarationSyntax>( context.Span )
-			where CanConvertToExpression( declaration )
-			let body = GetBody( declaration )
+			where _handler.CanConvertToExpression( declaration )
+			let body = _handler.GetBody( declaration )
 			where body?.Statements.Count == 1
 			let expression = TryGetLambdableExpression( body.Statements[ 0 ] )
 			where expression != null
@@ -58,7 +65,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			TDeclarationSyntax newMember = oneLiner.Declaration;
 
 			//	Remove the \r\n if it's the only trailing trivia
-			SyntaxNode removedNode = GetRemovedNode( oneLiner.Declaration );
+			SyntaxNode removedNode = _handler.GetRemovedNode( oneLiner.Declaration );
 			SyntaxNode lastMaintainedNode = oneLiner.Declaration.FindNode( new TextSpan( removedNode.FullSpan.Start - 1, 0 ) );
 			SyntaxTriviaList lastMaintainedNodeTrivia = lastMaintainedNode.GetTrailingTrivia();
 			if ( lastMaintainedNodeTrivia.Count == 1 && lastMaintainedNodeTrivia[ 0 ].IsKind( SyntaxKind.EndOfLineTrivia ) )
@@ -71,14 +78,8 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			ExpressionSyntax returnExpression = oneLiner.Expression.WithLeadingTrivia( SyntaxTrivia( SyntaxKind.WhitespaceTrivia, " " ) );
 			ArrowExpressionClauseSyntax arrow = ArrowExpressionClause( returnExpression );
 
-			return ReplaceBodyWithExpressionClause( newMember, arrow );
+			return _handler.ReplaceBodyWithExpressionClause( newMember, arrow );
 		}
-
-		protected abstract bool CanConvertToExpression( TDeclarationSyntax declaration );
-		protected abstract BlockSyntax GetBody( TDeclarationSyntax declaration );
-		protected abstract string GetIdentifierName( TDeclarationSyntax declaration );
-		protected abstract SyntaxNode GetRemovedNode( TDeclarationSyntax declaration );
-		protected abstract TDeclarationSyntax ReplaceBodyWithExpressionClause( TDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow );
 
 		private class OneLiner
 		{
