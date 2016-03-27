@@ -52,7 +52,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 			foreach ( OneLiner oneLiner in oneLiners )
 			{
-				string memberName = semanticModel.GetDeclaredSymbol( oneLiner.Declaration, context.CancellationToken )?.Name ?? _handler.GetIdentifierName( oneLiner.Declaration );
+				string memberName = _handler.GetMemberName( oneLiner.Declaration, semanticModel );
 				CodeAction codeFix = CodeAction.Create( $"Convert '{memberName}' to an expression-bodied member", c => ConvertToExpressionBodiedMemberAsync( oneLiner, context, root, c ) );
 				context.RegisterRefactoring( codeFix );
 			}
