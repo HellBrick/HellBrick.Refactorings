@@ -17,39 +17,6 @@ using HellBrick.Refactorings.Utils;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
-	public abstract class BaseMethodExpressionBodyHandler<TDeclaration> : IExpressionBodyHandler<TDeclaration>
-		where TDeclaration : BaseMethodDeclarationSyntax
-	{
-		public bool CanConvertToExpression( TDeclaration declaration ) => true;
-		public BlockSyntax GetBody( TDeclaration declaration ) => declaration.Body;
-		public SyntaxNode GetRemovedNode( TDeclaration declaration ) => declaration.Body;
-
-		public abstract string GetIdentifierName( TDeclaration declaration );
-		public abstract TDeclaration ReplaceBodyWithExpressionClause( TDeclaration declaration, ArrowExpressionClauseSyntax arrow );
-	}
-
-	public class MethodExpressionBodyHandler : BaseMethodExpressionBodyHandler<MethodDeclarationSyntax>
-	{
-		public override string GetIdentifierName( MethodDeclarationSyntax declaration ) => declaration.Identifier.Text;
-
-		public override MethodDeclarationSyntax ReplaceBodyWithExpressionClause( MethodDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
-			declaration
-				.WithBody( null )
-				.WithExpressionBody( arrow )
-				.WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) );
-	}
-
-	public class OperatorExpressionBodyHandler : BaseMethodExpressionBodyHandler<OperatorDeclarationSyntax>
-	{
-		public override string GetIdentifierName( OperatorDeclarationSyntax declaration ) => "operator " + declaration.OperatorToken.ToString();
-
-		public override OperatorDeclarationSyntax ReplaceBodyWithExpressionClause( OperatorDeclarationSyntax declaration, ArrowExpressionClauseSyntax arrow ) =>
-			declaration
-				.WithBody( null )
-				.WithExpressionBody( arrow )
-				.WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) );
-	}
-
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
 	public class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
 	{
