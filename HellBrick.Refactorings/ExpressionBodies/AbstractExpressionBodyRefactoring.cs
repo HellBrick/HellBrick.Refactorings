@@ -38,9 +38,13 @@ namespace HellBrick.Refactorings.ExpressionBodies
 			where CanConvertToExpression( declaration )
 			let body = GetBody( declaration )
 			where body?.Statements.Count == 1
-			let returnStatement = body.Statements[ 0 ] as ReturnStatementSyntax
-			where returnStatement != null && returnStatement.Expression != null
-			select new OneLiner( declaration, returnStatement );
+			let expression = TryGetLambdableExpression( body.Statements[ 0 ] )
+			where expression != null
+			select new OneLiner( declaration, expression );
+
+		private static ExpressionSyntax TryGetLambdableExpression( StatementSyntax singleStatement )
+			=> ( singleStatement as ReturnStatementSyntax )?.Expression
+			?? ( singleStatement as ExpressionStatementSyntax )?.Expression;
 
 		private Task<Document> ConvertToExpressionBodiedMemberAsync( OneLiner oneLiner, CodeRefactoringContext context, SyntaxNode root, CancellationToken cancellationToken )
 		{
@@ -64,7 +68,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 					removedNode.ReplaceTrivia( lastMaintainedNodeTrivia[ 0 ], SyntaxTrivia( SyntaxKind.WhitespaceTrivia, " " ) ) );
 			}
 
-			ExpressionSyntax returnExpression = oneLiner.ReturnStatement.Expression.WithLeadingTrivia( SyntaxTrivia( SyntaxKind.WhitespaceTrivia, " " ) );
+			ExpressionSyntax returnExpression = oneLiner.Expression.WithLeadingTrivia( SyntaxTrivia( SyntaxKind.WhitespaceTrivia, " " ) );
 			ArrowExpressionClauseSyntax arrow = ArrowExpressionClause( returnExpression );
 
 			return ReplaceBodyWithExpressionClause( newMember, arrow );
@@ -78,14 +82,14 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 		private class OneLiner
 		{
-			public OneLiner( TDeclarationSyntax declaration, ReturnStatementSyntax returnStatement )
+			public OneLiner( TDeclarationSyntax declaration, ExpressionSyntax expression )
 			{
 				Declaration = declaration;
-				ReturnStatement = returnStatement;
+				Expression = expression;
 			}
 
 			public TDeclarationSyntax Declaration { get; }
-			public ReturnStatementSyntax ReturnStatement { get; }
+			public ExpressionSyntax Expression { get; }
 		}
 	}
 }
