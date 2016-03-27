@@ -50,7 +50,10 @@ namespace HellBrick.Refactorings.Test
 				 MetadataReference.CreateFromFile( typeof( object ).GetType().Assembly.Location ),
 				 MetadataReference.CreateFromFile( typeof( Enumerable ).GetType().Assembly.Location ) );
 
-			return new AdhocWorkspace()
+			var adhocWorkspace = new AdhocWorkspace();
+			adhocWorkspace.Options = adhocWorkspace.Options.WithProperFormatting();
+
+			return adhocWorkspace
 				 .AddProject( "TestProject", LanguageNames.CSharp )
 				 .AddMetadataReferences( references )
 				 .AddDocument( "TestDocument", code );
