@@ -12,6 +12,7 @@ using System.Threading;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
+using System.Composition;
 
 namespace HellBrick.Refactorings.ExpressionBodies
 {
@@ -91,6 +92,29 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 			public TDeclarationSyntax Declaration { get; }
 			public ExpressionSyntax Expression { get; }
+		}
+	}
+
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
+	public class ToExpressionBodiedMethodRefactoring : AbstractExpressionBodyRefactoring<MethodDeclarationSyntax>
+	{
+		public ToExpressionBodiedMethodRefactoring() : base( new MethodExpressionBodyHandler() )
+		{
+		}
+	}
+
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedMethodRefactoring ) ), Shared]
+	public class ToExpressionBodiedOperatorRefactoring : AbstractExpressionBodyRefactoring<OperatorDeclarationSyntax>
+	{
+		public ToExpressionBodiedOperatorRefactoring() : base( new OperatorExpressionBodyHandler() )
+		{
+		}
+	}
+	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodiedPropertyRefactoring ) ), Shared]
+	public class ToExpressionBodiedPropertyRefactoring : AbstractExpressionBodyRefactoring<PropertyDeclarationSyntax>
+	{
+		public ToExpressionBodiedPropertyRefactoring() : base( new PropertyExpressionBodyHandler() )
+		{
 		}
 	}
 }
