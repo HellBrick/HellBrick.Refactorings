@@ -20,7 +20,7 @@ namespace HellBrick.Refactorings.VarConversions
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( VarConversionRefactoring ) ), Shared]
 	public class VarConversionRefactoring : CodeRefactoringProvider
 	{
-		private IDeclarationConverter[] converters = new IDeclarationConverter[]
+		private readonly IDeclarationConverter[] converters = new IDeclarationConverter[]
 		{
 			new VarToExplicitDeclarationConverter(),
 			new ExplicitToVarDeclarationConverter()

@@ -10,7 +10,7 @@ namespace HellBrick.Refactorings.Test
 {
 	public class VarToExplicitTypeTest
 	{
-		private VarConversionRefactoring _provider = new VarConversionRefactoring();
+		private readonly VarConversionRefactoring _provider = new VarConversionRefactoring();
 
 		[Fact]
 		public void AnonymousTypeVariableIsIgnored()

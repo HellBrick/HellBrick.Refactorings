@@ -19,7 +19,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodyRefactoring ) ), Shared]
 	public class ToExpressionBodyRefactoring : CodeRefactoringProvider
 	{
-		private CodeRefactoringProvider[] _subProviders = new CodeRefactoringProvider[]
+		private readonly CodeRefactoringProvider[] _subProviders = new CodeRefactoringProvider[]
 		{
 			new ToExpressionBodyRefactoring<MethodDeclarationSyntax>( new MethodExpressionBodyHandler() ),
 			new ToExpressionBodyRefactoring<OperatorDeclarationSyntax>( new OperatorExpressionBodyHandler() ),
