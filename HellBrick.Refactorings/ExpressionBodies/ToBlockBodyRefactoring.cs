@@ -75,7 +75,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 				return newMember;
 			}
 
-			private struct ArrowDeclaration
+			private struct ArrowDeclaration : IEquatable<ArrowDeclaration>
 			{
 				public ArrowDeclaration( TDeclaration declaration, ArrowExpressionClauseSyntax arrow )
 				{
@@ -85,6 +85,24 @@ namespace HellBrick.Refactorings.ExpressionBodies
 
 				public TDeclaration Declaration { get; }
 				public ArrowExpressionClauseSyntax Arrow { get; }
+
+				public override int GetHashCode()
+				{
+					unchecked
+					{
+						const int prime = -1521134295;
+						int hash = 12345701;
+						hash = hash * prime + EqualityComparer<TDeclaration>.Default.GetHashCode( Declaration );
+						hash = hash * prime + EqualityComparer<ArrowExpressionClauseSyntax>.Default.GetHashCode( Arrow );
+						return hash;
+					}
+				}
+
+				public bool Equals( ArrowDeclaration other ) => EqualityComparer<TDeclaration>.Default.Equals( Declaration, other.Declaration ) && EqualityComparer<ArrowExpressionClauseSyntax>.Default.Equals( Arrow, other.Arrow );
+				public override bool Equals( object obj ) => obj is ArrowDeclaration && Equals( (ArrowDeclaration) obj );
+
+				public static bool operator ==( ArrowDeclaration x, ArrowDeclaration y ) => x.Equals( y );
+				public static bool operator !=( ArrowDeclaration x, ArrowDeclaration y ) => !x.Equals( y );
 			}
 		}
 	}

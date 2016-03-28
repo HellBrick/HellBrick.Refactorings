@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace HellBrick.Refactorings.StringInterpolation
 {
-	internal struct StringFormatConversion
+	internal struct StringFormatConversion : IEquatable<StringFormatConversion>
 	{
 		public static readonly StringFormatConversion None = default( StringFormatConversion );
 
@@ -44,5 +44,23 @@ namespace HellBrick.Refactorings.StringInterpolation
 
 			return new StringFormatConversion( formatCall, interpolatedString );
       }
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				const int prime = -1521134295;
+				int hash = 12345701;
+				hash = hash * prime + EqualityComparer<InvocationExpressionSyntax>.Default.GetHashCode( FormatCall );
+				hash = hash * prime + EqualityComparer<InterpolatedStringExpressionSyntax>.Default.GetHashCode( InterpolatedString );
+				return hash;
+			}
+		}
+
+		public bool Equals( StringFormatConversion other ) => EqualityComparer<InvocationExpressionSyntax>.Default.Equals( FormatCall, other.FormatCall ) && EqualityComparer<InterpolatedStringExpressionSyntax>.Default.Equals( InterpolatedString, other.InterpolatedString );
+		public override bool Equals( object obj ) => obj is StringFormatConversion && Equals( (StringFormatConversion) obj );
+
+		public static bool operator ==( StringFormatConversion x, StringFormatConversion y ) => x.Equals( y );
+		public static bool operator !=( StringFormatConversion x, StringFormatConversion y ) => !x.Equals( y );
 	}
 }
