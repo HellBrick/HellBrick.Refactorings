@@ -18,7 +18,7 @@ namespace HellBrick.Refactorings.ExpressionBodies
 	[ExportCodeRefactoringProvider( LanguageNames.CSharp, Name = nameof( ToExpressionBodyRefactoring ) ), Shared]
 	public class ToBlockBodyRefactoring : CodeRefactoringProvider
 	{
-		private CodeRefactoringProvider[] _subProviders = new CodeRefactoringProvider[]
+		private readonly CodeRefactoringProvider[] _subProviders = new CodeRefactoringProvider[]
 		{
 			new DelcarationSpecificToBlockBodyRefactoring<MethodDeclarationSyntax>( new MethodExpressionBodyHandler() ),
 			new DelcarationSpecificToBlockBodyRefactoring<OperatorDeclarationSyntax>( new OperatorExpressionBodyHandler() ),

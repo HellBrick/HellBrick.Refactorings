@@ -12,7 +12,7 @@ namespace HellBrick.Refactorings.Test
 {
 	public class StringFormatToStringInterpolationTest
 	{
-		private StringFormatToStringInterpolationRefactoring _refactoringProvider = new StringFormatToStringInterpolationRefactoring();
+		private readonly StringFormatToStringInterpolationRefactoring _refactoringProvider = new StringFormatToStringInterpolationRefactoring();
 
 		[Fact]
 		public void CallWithoutAlignmentOrFormatIsConverted()
