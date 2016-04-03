@@ -34,6 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ClassDeanonimization\ClassDeclarationSyntax.OverrideEquals.cs" />
+    <Compile Include="ClassDeanonimization\ConvertToNestedClassRefactoring.cs" />
+    <Compile Include="ClassDeanonimization\DefaultEqualityComparer.cs" />
+    <Compile Include="ClassDeanonimization\ClassDeclarationSyntax.AddEqualityOperators.cs" />
+    <Compile Include="ClassDeanonimization\ClassDeclarationSyntax.ImplementEquatable.cs" />
+    <Compile Include="ClassDeanonimization\GeneratedPropertyInfo.cs" />
+    <Compile Include="ClassDeanonimization\ClassDeclarationSyntax.OverrideGetHashCode.cs" />
+    <Compile Include="ClassDeanonimization\ReferenceEqualsCall.cs" />
+    <Compile Include="ClassDeanonimization\ClassDeclarationSyntax.OverrideToString.cs" />
     <Compile Include="EnumerableExtensions.Concat.cs" />
     <Compile Include="ExpressionBodies\ToBlockBodyRefactoring.cs" />
     <Compile Include="ExpressionBodies\ToExpressionBodyRefactoring.cs" />
@@ -43,6 +52,7 @@
     <Compile Include="ExpressionBodies\Handlers\OperatorExpressionBodyHandler.cs" />
     <Compile Include="ExpressionBodies\Handlers\PropertyExpressionBodyHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="String.NullIfEmpty.cs" />
     <Compile Include="StringInterpolation\FormatStringParser.cs" />
     <Compile Include="StringInterpolation\StringFormatConversion.cs" />
     <Compile Include="StringInterpolation\StringFormatToStringInterpolationRefactoring.cs" />
