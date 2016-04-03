@@ -2,8 +2,11 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
 		<Identity Id="HellBrick.Refactorings.Vsix.HellBrick.420a643f-61e0-4b35-8fb0-a195ea7d3fa3" Version="1.2.0" Language="en-US" Publisher="HellBrick" />
-		<DisplayName>HellBrick.Refactorings.Vsix</DisplayName>
-		<Description xml:space="preserve">A set of refactorings by HellBrick</Description>
+		<DisplayName>HellBrick.Refactorings</DisplayName>
+		<Description xml:space="preserve">- Anonymous class to nested private class
+- Block-bodied member to expression-bodied member (and vice versa)
+- Var to explicit type (and vice versa)
+- String.Format() to string interpolation</Description>
 	</Metadata>
 	<Installation>
 		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
