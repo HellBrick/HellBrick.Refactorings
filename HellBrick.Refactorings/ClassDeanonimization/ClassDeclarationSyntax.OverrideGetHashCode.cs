@@ -79,13 +79,16 @@ namespace HellBrick.Refactorings.ClassDeanonimization
 		}
 
 		private static LocalDeclarationStatementSyntax IntDeclaration( string varName, int value )
+			=> IntDeclaration( varName, LiteralExpression( SyntaxKind.NumericLiteralExpression, Literal( value ) ) );
+
+		private static LocalDeclarationStatementSyntax IntDeclaration( string varName, ExpressionSyntax valueExpression )
 			=> LocalDeclarationStatement
 			(
 				VariableDeclaration( ParseTypeName( "int" ) )
-					.AddVariables
-					(
-						VariableDeclarator( varName ).WithInitializer( EqualsValueClause( LiteralExpression( SyntaxKind.NumericLiteralExpression, Literal( value ) ) ) )
-					)
+				.AddVariables
+				(
+					VariableDeclarator( varName ).WithInitializer( EqualsValueClause( valueExpression ) )
+				)
 			);
 
 		private static ExpressionSyntax BuildPropertyHashCodeCall( GeneratedPropertyInfo propertyInfo )
