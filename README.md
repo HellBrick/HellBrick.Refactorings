@@ -1,0 +1,1 @@
+http://vsixgallery.com/extension/HellBrick.Refactorings.Vsix.HellBrick.420a643f-61e0-4b35-8fb0-a195ea7d3fa3/
