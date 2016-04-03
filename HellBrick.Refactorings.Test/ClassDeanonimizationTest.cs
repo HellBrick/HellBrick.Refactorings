@@ -136,7 +136,7 @@ class C
 			unchecked
 			{
 				const int prime = -1521134295;
-				int hash = 1623542975;
+				int hash = nameof( __GeneratedClass ).GetHashCode();
 				hash = hash * prime + EqualityComparer<string>.Default.GetHashCode( Text );
 				hash = hash * prime + EqualityComparer<string>.Default.GetHashCode( Empty );
 				return hash;

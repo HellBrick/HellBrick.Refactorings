@@ -15,9 +15,9 @@ namespace HellBrick.Refactorings.ClassDeanonimization
 		private static readonly IdentifierNameSyntax _getHashCodeIdentifier = IdentifierName( nameof( Object.GetHashCode ) );
 
 		public static ClassDeclarationSyntax OverrideGetHashCode( this ClassDeclarationSyntax classDeclaration, GeneratedPropertyInfo[] propertySources )
-			=> classDeclaration.AddMembers( BuildGetHashCodeOverride( propertySources ) );
+			=> classDeclaration.AddMembers( BuildGetHashCodeOverride( classDeclaration.Identifier, propertySources ) );
 
-		public static MethodDeclarationSyntax BuildGetHashCodeOverride( GeneratedPropertyInfo[] propertySources )
+		public static MethodDeclarationSyntax BuildGetHashCodeOverride( SyntaxToken className, GeneratedPropertyInfo[] propertySources )
 		{
 			MethodDeclarationSyntax method =
 				MethodDeclaration( ParseTypeName( nameof( Int32 ) ), _getHashCodeIdentifier.Identifier )
@@ -26,7 +26,7 @@ namespace HellBrick.Refactorings.ClassDeanonimization
 
 			method = propertySources.Length < 2 ?
 				method.WithExpressionBody( BuildGetHashCodeArrow( propertySources ) ).WithSemicolonToken( Token( SyntaxKind.SemicolonToken ) ) :
-				method.WithBody( BuildGetHashCodeBody( propertySources ) );
+				method.WithBody( BuildGetHashCodeBody( className, propertySources ) );
 
 			return method;
 		}
@@ -39,22 +39,30 @@ namespace HellBrick.Refactorings.ClassDeanonimization
 					BuildPropertyHashCodeCall( propertySources[ 0 ] )
 			);
 
-		private static BlockSyntax BuildGetHashCodeBody( GeneratedPropertyInfo[] propertySources )
-			=> Block( CheckedStatement( SyntaxKind.UncheckedStatement, Block( EnumerateHashAlgorithmStatements( propertySources ) ) ) );
+		private static BlockSyntax BuildGetHashCodeBody( SyntaxToken className, GeneratedPropertyInfo[] propertySources )
+			=> Block( CheckedStatement( SyntaxKind.UncheckedStatement, Block( EnumerateHashAlgorithmStatements( className, propertySources ) ) ) );
 
 
-		private static IEnumerable<StatementSyntax> EnumerateHashAlgorithmStatements( GeneratedPropertyInfo[] propertySources )
+		private static IEnumerable<StatementSyntax> EnumerateHashAlgorithmStatements( SyntaxToken className, GeneratedPropertyInfo[] propertySources )
 		{
 			const string primeName = "prime";
 			const string hashName = "hash";
 			const int prime = unchecked((int) 2773833001);
 
-			int propNameHash = propertySources
-				.Select( p => p.Name )
-				.Aggregate( 12345701, ( oldHash, name ) => unchecked(oldHash * prime + name.GetHashCode()) );
-
 			yield return IntDeclaration( primeName, prime ).AddModifiers( Token( SyntaxKind.ConstKeyword ) );
-			yield return IntDeclaration( hashName, propNameHash );
+			yield return IntDeclaration
+			(
+				hashName,
+				InvocationExpression
+				(
+					MemberAccessExpression
+					(
+						SyntaxKind.SimpleMemberAccessExpression,
+						InvocationExpression( IdentifierName( "nameof" ) ).AddArgumentListArguments( Argument( IdentifierName( className ) ) ),
+						IdentifierName( nameof( String.GetHashCode ) )
+					)
+				)
+			);
 
 			foreach ( GeneratedPropertyInfo property in propertySources )
 			{
